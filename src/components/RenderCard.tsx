@@ -7,8 +7,12 @@ import { useStoreInContext } from "../zustand/store";
 
 
 const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
-  const { simulateFetchData } = useStoreInContext();
+  const { simulateFetchData, fetchPokemons } = useStoreInContext();
   const [loading, setLoading] = useState(false);
+
+  const reload = ()=>{
+    fetchPokemons();
+  }
 
   const fetchData = ()=>{
     setLoading(true);
@@ -31,7 +35,7 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     return ()=>{
       window.removeEventListener("scroll", handleScroll);
     }
-  },[]);
+  },[loading]);
   useEffect(() => {
     const handleTouchMove = () => {
       handleScroll();
@@ -42,9 +46,9 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     return () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, []);
+  }, [loading]);
 
-  if(!pokemons.length) return <span>Espere un Momento</span>
+  if(!pokemons.length) return <button onClick={reload}>Recargar</button>
 
   if (pokemons.length){
     return (
