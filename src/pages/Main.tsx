@@ -1,17 +1,19 @@
 import React from "react";
 import { useStoreInContext } from "../zustand/store";
-import { RenderCard } from "../components";
+import { RenderCard, FilterPanel } from "../components";
+import "./main.css";
+
 const Main = () => {
 
     const {pokemons} = useStoreInContext();
     console.log(pokemons)
   return (
-    <section>
+    <section className="container-main">
         <section>
             <h1>PokeDex 3.0</h1>
         </section>
         <section>
-            filtros
+            <FilterPanel/>
         </section>
         <section>
             <RenderCard pokemons={pokemons}/>
