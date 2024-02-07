@@ -1,27 +1,26 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RenderCardComponent } from "../types";
 import { Pokemon } from "../types";
 import { Card } from ".";
 import "./renderCard.css"
-import { useStoreInContext } from "../zustand/storeUtils";
-import { StoreState } from "../types";
+import { useStoreInContext } from "../zustand/store";
 
 
 const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
-  const { simulateFetchData, fetchPokemons } = useStoreInContext() as StoreState;
+  const { simulateFetchData, fetchPokemons } = useStoreInContext();
   const [loading, setLoading] = useState(false);
 
   const reload = ()=>{
     fetchPokemons();
   }
 
-  const fetchData = useCallback(()=>{
+  const fetchData = ()=>{
     setLoading(true);
     simulateFetchData();
     setLoading(false);
-  },[simulateFetchData, setLoading]);
+  }
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
     const clientHeight = document.documentElement.clientHeight || window.innerHeight;
@@ -29,14 +28,14 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     if (scrollTop + clientHeight >= scrollHeight - 100 && !loading) {
       fetchData();
     }
-  },[fetchData, loading]);
+  };
 
   useEffect(()=>{
     window.addEventListener("scroll", handleScroll);
     return ()=>{
       window.removeEventListener("scroll", handleScroll);
     }
-  },[loading, handleScroll]);
+  },[loading]);
   useEffect(() => {
     const handleTouchMove = () => {
       handleScroll();
@@ -47,7 +46,7 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     return () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [loading, handleScroll]);
+  }, [loading]);
 
   if(!pokemons.length) return <button onClick={reload}>Recargar</button>
 

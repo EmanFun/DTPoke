@@ -13,6 +13,5 @@ const routes: RouteObject[] = [
         element: <Main/>
     }
 ];
-const BrowserRouter = createBrowserRouter(routes);
 
-export default BrowserRouter
+export default createBrowserRouter(routes);

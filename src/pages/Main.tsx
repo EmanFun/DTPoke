@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useStoreInContext } from "../zustand/storeUtils";
+import React, { useEffect } from "react";
+import { useStoreInContext } from "../zustand/store";
 import { RenderCard, FilterPanel } from "../components";
 import "./main.css";
 
