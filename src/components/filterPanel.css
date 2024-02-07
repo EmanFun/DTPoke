@@ -1,0 +1,14 @@
+.container-panel{
+    background-color: beige;
+    height: 10rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-filter{
+    display: flex;
+    flex-direction: column;
+}

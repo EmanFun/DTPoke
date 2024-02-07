@@ -2,7 +2,7 @@ export type Pokemon = {
     id: number;
     name: string;
     image: string;
-    attack: string;
+    attack: number;
     height: number;
     types: string[];
     moves: string[];

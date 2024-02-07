@@ -34,6 +34,7 @@ const Card: React.FC<CardComponent> = ({ pokemon }) => {
         <img src={pokemon.image} alt={pokemon.name}/>
         <h4>Descriptión</h4>
         <p>Ataque: {pokemon.attack}</p>
+        <p>Altura: {pokemon.height}</p>
         <p onClick={handleToggleTypes} style={{ cursor: 'pointer' }}>Tipos</p>
         {
             isTypesExpanded &&
