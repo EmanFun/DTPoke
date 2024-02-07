@@ -1,13 +1,16 @@
 import { useContext } from 'react';
-import { useStore } from 'zustand';
-import {StoreContext} from './store';
+import { useStore, StoreApi } from 'zustand';
+import { StoreState } from '../types';
+import { StoreContext } from './store';
 
+export const useStoreInContext = (
+  selector?: any
+) => {
+  const store = useContext(StoreContext) as StoreApi<StoreState> | null;
 
-
-export const useStoreInContext = <SelectorType = unknown>(selector?: SelectorType) => {
-  const store = useContext(StoreContext);
   if (!store) {
     throw new Error('Missing StoreProvider');
   }
-  return useStore(store, selector);
+
+  return useStore(store, selector ); // Proporciona un selector predeterminado
 };

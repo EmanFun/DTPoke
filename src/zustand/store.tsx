@@ -1,5 +1,5 @@
 
-import { StoreApi, createStore } from 'zustand';
+import { createStore, StoreApi } from 'zustand';
 import { createContext, useRef, ReactNode } from 'react';
 import axios from 'axios';
 import { StoreState, Stats, Types, Moves, Abilities, PokemonAPiFirstResponse, Pokemon } from '../types';
@@ -106,11 +106,13 @@ interface StoreProviderProps {
 
 export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const storeRef = useRef<StoreApi<StoreState> | null>(null);
+
   if (!storeRef.current) {
-    storeRef.current = store as StoreApi<StoreState>;
+    storeRef.current = store;
   }
+
   return (
-    <StoreContext.Provider value={storeRef.current}>
+    <StoreContext.Provider value={storeRef.current?.getState()}>
       {children}
     </StoreContext.Provider>
   );
