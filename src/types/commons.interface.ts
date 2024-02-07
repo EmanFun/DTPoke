@@ -1,3 +1,4 @@
+
 import { Pokemon } from ".";
 
 
@@ -7,7 +8,7 @@ export interface PokemonAPiFirstResponse {
 }
 
 
-
+/* 
 export interface PokemonApiSecondResponse {
     id: number;
     sprites: {
@@ -23,7 +24,7 @@ export interface PokemonApiSecondResponse {
     types: Array<{ type: { name: string } }>;
     moves: Array<{ move: { name: string } }>;
     abilities: Array<{ ability: { name: string } }>;
-  }
+  } */
 export interface StoreState {
     backup: Pokemon[];
     pokemons: Pokemon[];
