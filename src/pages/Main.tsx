@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStoreInContext } from "../zustand/store";
 import { RenderCard, FilterPanel } from "../components";
 import "./main.css";
@@ -6,6 +6,11 @@ import "./main.css";
 const Main = () => {
 
     const {pokemons} = useStoreInContext();
+
+    useEffect(()=>{
+
+    },[pokemons])
+
     console.log(pokemons)
   return (
     <section className="container-main">

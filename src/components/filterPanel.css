@@ -1,14 +1,32 @@
 .container-panel{
-    background-color: beige;
-    height: 10rem;
-    color: black;
+    background-color: #41516B;
+    height: 8rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    padding: 2rem;
+    
 }
 
 .container-filter{
     display: flex;
     flex-direction: column;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .container-panel{
+        height: 15rem;
+
+        display: list-item;
+        list-style: none;
+        
+    }
+    .container-filter{
+        flex-basis: 5px; 
+
+    }
 }
