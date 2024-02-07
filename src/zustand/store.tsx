@@ -63,28 +63,28 @@ const store = createStore<StoreState>((set) => ({
 
   orderByAttack: ( action)=> set((state)=>({ 
     pokemons: action === 'H_ATTACK' 
-    ? state.pokemons.sort((a,b) => b.attack - a.attack).slice(0,5) 
-    : state.pokemons.sort((a,b) => a.attack - b.attack).slice(0,5) 
+    ? state.backup.sort((a,b) => b.attack - a.attack).slice(0,5) 
+    : state.backup.sort((a,b) => a.attack - b.attack).slice(0,5) 
   })),
 
   orderByAlphabetic: (action) => set((state)=>({
     pokemons: action === 'A_Z' 
-    ? state.pokemons.sort((a, b)=> a.name.localeCompare(b.name) ).slice(0,5)
-    : state.pokemons.sort((a, b)=> b.name.localeCompare(a.name) ).slice(0,5)
+    ? state.backup.sort((a, b)=> a.name.localeCompare(b.name) ).slice(0,5)
+    : state.backup.sort((a, b)=> b.name.localeCompare(a.name) ).slice(0,5)
   })),
 
   orderByHeight: ( action) => set((state)=>({ 
     pokemons: action === 'H_HEIGHT' 
-    ? state.pokemons.sort((a, b) => b.height - a.height).slice(0,5)
-    : state.pokemons.sort((a, b) => a.height - b.height).slice(0,5),
+    ? state.backup.sort((a, b) => b.height - a.height).slice(0,5)
+    : state.backup.sort((a, b) => a.height - b.height).slice(0,5),
   })),
 
   filterByAbility:(action) => set((state) =>({
-    pokemons: action === 'reload' ? state.backup.slice(0,5) : state.backup.filter((item) => item.abilities.includes(action)).slice(0,5)
+    pokemons: state.backup.filter((item) => item.abilities.includes(action)).slice(0,5)
   })),
 
   filterByType: (action) => set((state)=>({
-    pokemons: action === 'reload' ? state.backup.slice(0,5) : state.backup.filter((item)=> item.types.includes(action)).slice(0,5)
+    pokemons: state.backup.filter((item)=> item.types.includes(action)).slice(0,5)
   })),
 
   simulateFetchData: () => set((state) => ({

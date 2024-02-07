@@ -27,9 +27,9 @@ const FilterPanel = () => {
   return (
       <section className="container-panel">
         <div className="container-filter">
-          <span>Orden Alfabético</span>
+          <span>Oreden Alfabetico</span>
           <select onChange={handleSelectChange("alphabetic", orderByAlphabetic)} name="alphabetic" id="alphabetic" defaultValue={'Selecionar'}>
-            <option value="default">Por Defecto</option>
+            <option value="default">Por defecto</option>
             <option value="A_Z">A_Z </option>
             <option value="Z_A">Z_A</option>
           </select>
@@ -37,7 +37,7 @@ const FilterPanel = () => {
         <div className="container-filter">
           <span>Orden por Ataque</span>
           <select onChange={handleSelectChange("attack", orderByAttack)} name="attack" id="attack" >
-            <option value="default">Por Defecto</option>
+            <option value="default">Por defecto</option>
             <option value="H_ATTACK">Mayor</option>
             <option value="L_ATTACK">Menor</option>
           </select>
@@ -45,16 +45,15 @@ const FilterPanel = () => {
         <div className="container-filter">
           <span>Orden por Altura</span>
           <select onChange={handleSelectChange("height", orderByHeight)} name="height" id="height">
-            <option value="default">Por Defecto</option>
+            <option value="default">Por defecto</option>
             <option value="H_HEIGHT">Mayor</option>
             <option value="L_HEIGHT">Menor</option>
           </select>
         </div>
         <div className="container-filter">
-          <span>Filtrar por  tipo</span>
+          <span>Filtrar por Tipo</span>
           <select onChange={handleSelectChange("filterType", filterByType)} name="filterType" id="filterType">
-            <option value="default">Por Defecto</option>
-            <option value="reload">Recargar</option>
+            <option value="default">Ningun</option>
             {
               types.map((item: string, index: number)=> {
                 return <option key={index} value={item}>{item}</option>
@@ -63,10 +62,9 @@ const FilterPanel = () => {
           </select>
         </div>
         <div className="container-filter">
-          <span>Filtrar por habilidad</span>
+          <span>Por Habilidad</span>
           <select onChange={handleSelectChange("filterAbility", filterByAbility)} name="filterAbility" id="filterAbility">
-            <option value="default">Por Defecto</option>
-            <option value="reload">Recargar</option>
+            <option value="default">Ningun</option>
             {
               abilities.map((item: string, index: number) => {
                 return <option key={index} value={item}>{item}</option>
