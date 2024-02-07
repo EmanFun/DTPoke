@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useStoreInContext } from "../zustand/storeUtils";
 import { NavLink } from "react-router-dom";
 import "./landing.css"
-import { StoreState } from "../types";
 const Landing = () => {
-  const {fetchPokemons} = useStoreInContext() as StoreState;
+  const {fetchPokemons} = useStoreInContext();
 
   useEffect(()=>{
     fetchPokemons();
