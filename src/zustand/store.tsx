@@ -1,10 +1,11 @@
 
-import { createStore } from 'zustand';
+import { StoreApi, createStore } from 'zustand';
 import { createContext, useRef, ReactNode } from 'react';
 import axios from 'axios';
-import { StoreState, Stats, Types, Moves, Abilities, PokemonAPiFirstResponse } from '../types';
+import { StoreState, Stats, Types, Moves, Abilities, PokemonAPiFirstResponse, Pokemon } from '../types';
 import Promise from 'bluebird';
-import Bluebird from 'bluebird';
+
+
 
 
 
@@ -14,10 +15,10 @@ export const StoreContext = createContext<StoreState | null>(null);
 const store = createStore<StoreState>((set) => ({
   backup: [],
   pokemons: [],
-  abilities: [],
-  moves: [],
-  types: [],
   pokemon: {},
+  types: [],
+  moves: [],
+  abilities: [],
   fetchPokemons: async () => {
     try {
       const response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset=50&limit=50');
@@ -28,7 +29,8 @@ const store = createStore<StoreState>((set) => ({
         return  axios.get(poke.url);
       })
       const results = await Promise.all(
-        data.map(async (item: Bluebird) => {
+        data.map(async (item: any) => {
+          console.log(item);
           let result = await item;
           result = result.data;
           return {
@@ -57,8 +59,9 @@ const store = createStore<StoreState>((set) => ({
             })
           };
         })
-      );
+      ) as Pokemon[]
       set({ backup: results, pokemons: results.slice(0,5), types: typesResponse, moves: movesResponse, abilities: abilitiesResponse  });
+
     } catch (error) {
       console.error(error);
     }
@@ -102,9 +105,9 @@ interface StoreProviderProps {
 }
 
 export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
-  const storeRef = useRef<StoreState | null>(null);
+  const storeRef = useRef<StoreApi<StoreState> | null>(null);
   if (!storeRef.current) {
-    storeRef.current = store;
+    storeRef.current = store as StoreApi<StoreState>;
   }
   return (
     <StoreContext.Provider value={storeRef.current}>
