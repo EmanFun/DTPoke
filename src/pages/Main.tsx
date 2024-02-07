@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { useStoreInContext } from "../zustand/storeUtils";
 import { RenderCard, FilterPanel } from "../components";
 import "./main.css";
-import { StoreState } from "../types";
 
 const Main = () => {
 
-    const {pokemons} = useStoreInContext() as StoreState;
+    const {pokemons} = useStoreInContext();
 
     useEffect(()=>{
 

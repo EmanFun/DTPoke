@@ -1,11 +1,10 @@
 import React from "react";
 import { useStoreInContext } from "../zustand/storeUtils";
 import "./filterPanel.css";
-import { StoreState } from "../types";
 
 const FilterPanel = () => {
 
-  const { orderByAttack, orderByAlphabetic, orderByHeight, filterByAbility, filterByType, types, abilities} = useStoreInContext() as StoreState;
+  const { orderByAttack, orderByAlphabetic, orderByHeight, filterByAbility, filterByType, types, abilities} = useStoreInContext();
 
 
   const handleSelectChange = (id: string, action: (value: string) => void) => (e: React.ChangeEvent<HTMLSelectElement>) => {
