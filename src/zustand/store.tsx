@@ -1,14 +1,15 @@
 
-import { createStore, useStore } from 'zustand';
-import { createContext, useContext, useRef, ReactNode } from 'react';
+import { createStore } from 'zustand';
+import { createContext, useRef, ReactNode } from 'react';
 import axios from 'axios';
-import { StoreState } from '../types';
+import { StoreState, Stats, Types, Moves, Abilities, PokemonAPiFirstResponse } from '../types';
 import Promise from 'bluebird';
+import Bluebird from 'bluebird';
 
 
 
 
-const StoreContext = createContext<StoreState | null>(null);
+export const StoreContext = createContext<StoreState | null>(null);
 
 const store = createStore<StoreState>((set) => ({
   backup: [],
@@ -23,38 +24,40 @@ const store = createStore<StoreState>((set) => ({
       const abilitiesResponse: string[] = [];
       const movesResponse: string[] = [];
       const typesResponse: string[] = [];
-      const data = response.data.results.map((poke: object)=>{
+      const data = response.data.results.map((poke: PokemonAPiFirstResponse)=>{
         return  axios.get(poke.url);
       })
-      const results = await Promise.map(data, async (item: any) =>{
+      const results = await Promise.all(
+        data.map(async (item: Bluebird) => {
           let result = await item;
           result = result.data;
           return {
             id: result.id,
             image: result.sprites.other.dream_world.front_default,
-            name: result.name, 
-            attack: result.stats.filter(el=> el.stat.name === 'attack').map((obj: any)=> obj.base_stat)[0],
+            name: result.name,
+            attack: result.stats.filter((el: Stats) => el.stat.name === 'attack').map((obj: Stats) => obj.base_stat)[0],
             height: result.height,
-            types: result.types.map((obj: any)=>{
-              if(!typesResponse.includes(obj.type.name)){
-                typesResponse.push(obj.type.name)
+            types: result.types.map((obj: Types) => {
+              if (!typesResponse.includes(obj.type.name)) {
+                typesResponse.push(obj.type.name);
               }
               return obj.type.name;
             }),
-            moves: result.moves.map((obj: any)=>{
-              if(!movesResponse.includes(obj.move.name)){
-                movesResponse.push(obj.move.name)
+            moves: result.moves.map((obj: Moves) => {
+              if (!movesResponse.includes(obj.move.name)) {
+                movesResponse.push(obj.move.name);
               }
               return obj.move.name;
             }),
-            abilities: result.abilities.map((obj: any)=>{
-              if(!abilitiesResponse.includes(obj.ability.name)){
+            abilities: result.abilities.map((obj: Abilities) => {
+              if (!abilitiesResponse.includes(obj.ability.name)) {
                 abilitiesResponse.push(obj.ability.name);
               }
               return obj.ability.name;
             })
-          }
-      });
+          };
+        })
+      );
       set({ backup: results, pokemons: results.slice(0,5), types: typesResponse, moves: movesResponse, abilities: abilitiesResponse  });
     } catch (error) {
       console.error(error);
@@ -98,7 +101,7 @@ interface StoreProviderProps {
   children: ReactNode;
 }
 
-const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
+export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const storeRef = useRef<StoreState | null>(null);
   if (!storeRef.current) {
     storeRef.current = store;
@@ -110,12 +113,4 @@ const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   );
 };
 
-const useStoreInContext = (selector?: any) => {
-  const store = useContext(StoreContext);
-  if (!store) {
-    throw new Error('Missing StoreProvider');
-  }
-  return useStore(store, selector);
-};
 
-export { StoreProvider, useStoreInContext };

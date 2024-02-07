@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useStoreInContext } from "../zustand/store";
+import React from "react";
+import { useStoreInContext } from "../zustand/storeUtils";
 import "./filterPanel.css";
 
 const FilterPanel = () => {
