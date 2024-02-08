@@ -1,17 +1,11 @@
-import { useEffect } from "react";
-import { useStoreInContext } from "../zustand/storeUtils";
 import { RenderCard, FilterPanel } from "../components";
 import "./main.css";
-import { StoreState } from "../types";
+import { usePokemonStore } from "../zustand/newStorage";
+
 
 const Main = () => {
 
-    const {pokemons} = useStoreInContext() as StoreState;
-
-    useEffect(()=>{
-
-    },[pokemons])
-
+    const {pokemons} = usePokemonStore() ;
     console.log(pokemons)
   return (
     <section className="container-main">

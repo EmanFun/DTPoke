@@ -3,23 +3,21 @@ import { RenderCardComponent } from "../types";
 import { Pokemon } from "../types";
 import { Card } from ".";
 import "./renderCard.css"
-import { useStoreInContext } from "../zustand/storeUtils";
-import { StoreState } from "../types";
+import { usePokemonStore } from "../zustand/newStorage";
 
 
 const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
-  const { simulateFetchData, fetchPokemons } = useStoreInContext() as StoreState;
+  const { simulateFetchData, fetchPokemons } = usePokemonStore();
   const [loading, setLoading] = useState(false);
 
   const reload = ()=>{
     fetchPokemons();
   }
-
   const fetchData = useCallback(()=>{
     setLoading(true);
     simulateFetchData();
     setLoading(false);
-  },[simulateFetchData, setLoading]);
+  }, [ setLoading, simulateFetchData]);
 
   const handleScroll = useCallback(() => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -29,14 +27,14 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     if (scrollTop + clientHeight >= scrollHeight - 100 && !loading) {
       fetchData();
     }
-  },[fetchData, loading]);
+  },[loading, fetchData]);
 
   useEffect(()=>{
     window.addEventListener("scroll", handleScroll);
     return ()=>{
       window.removeEventListener("scroll", handleScroll);
     }
-  },[loading, handleScroll]);
+  },[handleScroll]);
   useEffect(() => {
     const handleTouchMove = () => {
       handleScroll();
@@ -47,7 +45,7 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     return () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [loading, handleScroll]);
+  }, [handleScroll]);
 
   if(!pokemons.length) return <button onClick={reload}>Recargar</button>
 

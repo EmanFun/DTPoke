@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CardComponent } from "../types";
 import "./card.css"
 
@@ -26,19 +26,12 @@ const Card: React.FC<CardComponent> = ({ pokemon }) => {
         setIsAbilitiesExpanded(false)
 
       };
-      useEffect(()=>{
-
-      },[pokemon.image])
 
   return (
   <div className="container-card">
     <div className="card">
-        <h3 style={{textTransform: 'capitalize'}}>{pokemon.name}</h3>
-        {
-            pokemon.image ? <img src={pokemon.image} alt={pokemon.name}/> 
-            : <p style={{color: 'Red', fontSize: 'large'}}>Loading</p>
-        }
-        
+        <h3>{pokemon.name}</h3>
+        <img src={pokemon.image} alt={pokemon.name}/>
         <h4>Descriptión</h4>
         <p>Ataque: {pokemon.attack}</p>
         <p>Altura: {pokemon.height}</p>
