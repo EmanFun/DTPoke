@@ -7,9 +7,12 @@ import { usePokemonStore } from "../zustand/newStorage";
 
 
 const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
-  const { simulateFetchData } = usePokemonStore();
+  const { simulateFetchData, fetchPokemons } = usePokemonStore();
   const [loading, setLoading] = useState(false);
 
+  const reload = ()=>{
+    fetchPokemons();
+  }
   const fetchData = useCallback(()=>{
     setLoading(true);
     simulateFetchData();
@@ -44,7 +47,7 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     };
   }, [handleScroll]);
 
-  if(!pokemons.length) return <span>Espere un Momento</span>
+  if(!pokemons.length) return <button onClick={reload}>Recargar</button>
 
   if (pokemons.length){
     return (

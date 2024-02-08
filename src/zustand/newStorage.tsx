@@ -91,11 +91,11 @@ export const usePokemonStore = create<PokemonStore>()(
                   })),
                 
                   filterByAbility:(action) => set((state) =>({
-                    pokemons: state.backup.filter((item) => item.abilities.includes(action)).slice(0,5)
+                    pokemons: action === 'reload' ? state.backup.slice(0,5) : state.backup.filter((item) => item.abilities.includes(action)).slice(0,5)
                   })),
                 
                   filterByType: (action) => set((state)=>({
-                    pokemons: state.backup.filter((item)=> item.types.includes(action)).slice(0,5)
+                    pokemons: action === 'reload' ? state.backup.slice(0.5) : state.backup.filter((item)=> item.types.includes(action)).slice(0,5)
                   })),
                 
                   simulateFetchData: () => set((state) => ({

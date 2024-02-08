@@ -55,6 +55,7 @@ const FilterPanel = () => {
           <span>Filtrar por Tipo</span>
           <select onChange={handleSelectChange("filterType", filterByType)} name="filterType" id="filterType">
             <option value="default">Ningun</option>
+            <option value="reload">Recarga</option>
             {
               types.map((item: string, index: number)=> {
                 return <option key={index} value={item}>{item}</option>
@@ -66,6 +67,7 @@ const FilterPanel = () => {
           <span>Por Habilidad</span>
           <select onChange={handleSelectChange("filterAbility", filterByAbility)} name="filterAbility" id="filterAbility">
             <option value="default">Ningun</option>
+            <option value="reload">Recargar</option>
             {
               abilities.map((item: string, index: number) => {
                 return <option key={index} value={item}>{item}</option>
