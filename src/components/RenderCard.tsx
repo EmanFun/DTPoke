@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RenderCardComponent } from "../types";
 import { Pokemon } from "../types";
 import { Card } from ".";
 import "./renderCard.css"
-import { useStoreInContext } from "../zustand/store";
+import { usePokemonStore } from "../zustand/newStorage";
 
 
 const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
-  const { simulateFetchData } = useStoreInContext();
+  const { simulateFetchData } = usePokemonStore();
   const [loading, setLoading] = useState(false);
 
-  const fetchData = ()=>{
+  const fetchData = useCallback(()=>{
     setLoading(true);
     simulateFetchData();
     setLoading(false);
-  }
+  }, [ setLoading, simulateFetchData]);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
     const clientHeight = document.documentElement.clientHeight || window.innerHeight;
@@ -24,14 +24,14 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     if (scrollTop + clientHeight >= scrollHeight - 100 && !loading) {
       fetchData();
     }
-  };
+  },[loading, fetchData]);
 
   useEffect(()=>{
     window.addEventListener("scroll", handleScroll);
     return ()=>{
       window.removeEventListener("scroll", handleScroll);
     }
-  },[]);
+  },[handleScroll]);
   useEffect(() => {
     const handleTouchMove = () => {
       handleScroll();
@@ -42,7 +42,7 @@ const RenderCard: React.FC<RenderCardComponent> = ({pokemons}) => {
     return () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, []);
+  }, [handleScroll]);
 
   if(!pokemons.length) return <span>Espere un Momento</span>
 

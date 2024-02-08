@@ -1,11 +1,11 @@
-
-import { useStoreInContext } from "../zustand/store";
 import { RenderCard, FilterPanel } from "../components";
 import "./main.css";
+import { usePokemonStore } from "../zustand/newStorage";
+
 
 const Main = () => {
 
-    const {pokemons} = useStoreInContext();
+    const {pokemons} = usePokemonStore() ;
     console.log(pokemons)
   return (
     <section className="container-main">

@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { useStoreInContext } from "../zustand/store";
+
 import { NavLink } from "react-router-dom";
 import "./landing.css"
+import { usePokemonStore } from "../zustand/newStorage";
+
 const Landing = () => {
-  const {fetchPokemons} = useStoreInContext();
+  const {fetchPokemons} = usePokemonStore();
 
   useEffect(()=>{
     fetchPokemons();
@@ -13,7 +15,7 @@ const Landing = () => {
   return (
   <section className="container">
     <div className="wrapper-link">
-      <NavLink className="link-main" to='/main'>continuar</NavLink>
+      <NavLink className="link-main" to='/main'>Ingresar</NavLink>
     </div>
   </section>
   );

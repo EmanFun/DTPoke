@@ -8,3 +8,8 @@ export type Pokemon = {
     moves: string[];
     abilities: string[];
 }
+
+export type Response = {
+    name: string;
+    url: string;
+}

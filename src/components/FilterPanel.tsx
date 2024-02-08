@@ -1,10 +1,11 @@
 import React from "react";
-import { useStoreInContext } from "../zustand/store";
+
 import "./filterPanel.css";
+import { usePokemonStore } from "../zustand/newStorage";
 
 const FilterPanel = () => {
 
-  const { orderByAttack, orderByAlphabetic, orderByHeight, filterByAbility, filterByType, types, abilities} = useStoreInContext();
+  const { orderByAttack, orderByAlphabetic, orderByHeight, filterByAbility, filterByType, types, abilities} = usePokemonStore();
 
 
   const handleSelectChange = (id: string, action: (value: string) => void) => (e: React.ChangeEvent<HTMLSelectElement>) => {
