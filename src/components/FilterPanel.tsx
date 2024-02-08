@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useStoreInContext } from "../zustand/store";
 import "./filterPanel.css";
 

@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useStoreInContext } from "../zustand/store";
 import { RenderCard, FilterPanel } from "../components";
 import "./main.css";
